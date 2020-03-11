@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -197,7 +197,7 @@ namespace Microsoft.Automata.DirectedGraphs
             }
 
             tw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            tw.WriteLine("<DirectedGraph xmlns=\"http://schemas.microsoft.com/vs/2009/dgml\" ZoomLevel=\"1.5\" GraphDirection=\"TopToBottom\" >");
+            tw.WriteLine("<DirectedGraph xmlns=\"http://schemas.microsoft.com/vs/2009/dgml\" ZoomLevel=\"1.5\" GraphDirection=\"TopToBottom\" Background=\"White\" >");
             tw.WriteLine("<Nodes>");
             tw.WriteLine("<Node Id=\"init\" Label=\"{0}\" Stroke=\"white\" Background=\"white\"/>", name);
             foreach (int state in fa.GetStates())
@@ -412,7 +412,7 @@ namespace Microsoft.Automata.DirectedGraphs
         {
             maxLabelLength = maxLabel;
             tw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            tw.WriteLine("<DirectedGraph xmlns=\"http://schemas.microsoft.com/vs/2009/dgml\" ZoomLevel=\"1.5\" GraphDirection=\"TopToBottom\" >");
+            tw.WriteLine("<DirectedGraph xmlns=\"http://schemas.microsoft.com/vs/2009/dgml\" ZoomLevel=\"1.5\" GraphDirection=\"TopToBottom\" Background=\"White\" >");
             //-------------------- states ---------------------
             tw.WriteLine("<Nodes>");
             //--- initial state ---
