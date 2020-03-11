@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -69,10 +69,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Z3, Version=4.5.0.0, Culture=neutral, PublicKeyToken=9c8d792caae602a2, processorArchitecture=AMD64">
-      <HintPath>..\..\packages\z3x64win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +93,12 @@
       <Project>{b5e695df-c033-4938-94dd-ac6ecbeab36b}</Project>
       <Name>Automata</Name>
     </ProjectReference>
+  </ItemGroup>  
+  <ItemGroup>
+    <Reference Include="Microsoft.Z3, Version=4.5.0.0, Culture=neutral">
+      <HintPath>..\..\packages\z3x64win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
+      <HintPath Condition="'$(Platform)' == 'x86'">..\..\packages\z3x86win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

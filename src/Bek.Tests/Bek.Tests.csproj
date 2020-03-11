@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -79,12 +79,14 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Z3, Version=4.5.0.0, Culture=neutral, PublicKeyToken=9c8d792caae602a2, processorArchitecture=AMD64">
-      <HintPath>..\..\packages\z3x64win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Z3, Version=4.5.0.0, Culture=neutral">
+      <HintPath>..\..\packages\z3x64win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
+      <HintPath Condition="'$(Platform)' == 'x86'">..\..\packages\z3x86win.4.5.0.1\lib\Microsoft.Z3.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
