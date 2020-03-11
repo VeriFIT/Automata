@@ -128,6 +128,7 @@ namespace Microsoft.Automata
         /// <summary>
         /// Make a character set from a regex character class, e.g., 
         /// "\w" is the character class of word-letter characters.
+        /// Also can be used for any other length-1 regexes
         /// </summary>
         public BDD MkCharSetFromRegexCharClass(string charClass)
         {

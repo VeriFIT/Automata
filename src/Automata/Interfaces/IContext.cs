@@ -9,7 +9,7 @@ namespace Microsoft.Automata
     /// <typeparam name="FUNC">function declarations, each function declaration has domain and range sorts</typeparam>
     /// <typeparam name="TERM">terms, each term has a fixed sort</typeparam>
     /// <typeparam name="SORT">sorts correspond to different subuniverses of elements</typeparam>
-    public interface IContext<FUNC, TERM, SORT> : IContextCore<TERM>
+    public interface IContext<FUNC, TERM, SORT> : IContextCore<TERM>, ICharAlgebra<TERM>
     {
         #region Basic sorts
         /// <summary>
@@ -484,7 +484,7 @@ namespace Microsoft.Automata
     /// Operations that do not depend on function symbol or sort types.
     /// </summary>
     public interface IContextCore<TERM> :
-        ICharAlgebra<TERM>,
+        IBooleanAlgebra<TERM>,
         IDisposable
     {
         /// <summary>

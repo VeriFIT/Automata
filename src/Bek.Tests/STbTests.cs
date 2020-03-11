@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
@@ -889,9 +889,11 @@ program utf8decode(input){
         {
             Z3Provider solver = new Z3Provider(BitWidth.BV8);
             STbFromRegexBuilder<FuncDecl, Expr, Sort> builder = new STbFromRegexBuilder<FuncDecl, Expr, Sort>(solver);
-            var res = builder.Mk(@"((?<i>\d+),)*", "i", "int");
+            var res = builder.Mk(@"(?<i>\d+),(?<w>\w+),(?<single>\w)", "i", "int", "w", "last", "single", "last");
             res.Name = "ParseCommaSeparatedIntegers";
-            //res.ToST().ShowGraph();
+            //res.ShowGraph();
+            var st = res.ToST();
+            st.ShowGraph();
         }
 
 
