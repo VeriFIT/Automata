@@ -5,7 +5,7 @@ using Microsoft.Automata;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class StateDistinguisherTests

@@ -9,7 +9,7 @@ using Microsoft.Automata;
 using System.Text.RegularExpressions;
 using System.IO;
 
-namespace Automata.Tests 
+namespace Microsoft.Automata.Tests 
 {
     /// <summary>
     /// Tests core functionality used by Rex 

@@ -5,7 +5,7 @@ using Microsoft.Automata.Grammars;
 using System.Collections.Generic;
 
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class ContextFreeGrammarTests

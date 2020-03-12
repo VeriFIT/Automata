@@ -9,7 +9,7 @@ using Microsoft.Automata;
 using System.Text.RegularExpressions;
 
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class MinimizationTests

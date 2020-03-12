@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Security.Cryptography;
 using System.Runtime.Serialization.Formatters.Soap;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class SymbolicRegexTests
@@ -867,7 +867,7 @@ namespace Automata.Tests
     }
 }
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class RegexMatcherTests

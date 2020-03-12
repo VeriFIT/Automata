@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System.Security.Cryptography;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class CountingSetTests

@@ -8,7 +8,7 @@ using Microsoft.Automata.Z3.Internal;
 using Microsoft.Automata;
 using Microsoft.Z3;
 
-namespace Automata.Z3.Tests
+namespace Microsoft.Automata.Z3.Tests
 {
     [TestClass]
     public class Z3_Z3ContextTests

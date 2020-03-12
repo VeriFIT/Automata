@@ -13,7 +13,7 @@ using Microsoft.Automata.Z3;
 using Microsoft.Automata.Z3.Internal;
 using Microsoft.Z3;
 
-namespace MSOZ3Test
+namespace Microsoft.MSOZ3Test
 {
     public class MyTestContext : TestContext
     {

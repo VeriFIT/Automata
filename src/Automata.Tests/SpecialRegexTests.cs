@@ -12,7 +12,7 @@ using Microsoft.Automata.Utilities;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     public class MyTestContext : TestContext
     {

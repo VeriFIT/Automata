@@ -7,7 +7,7 @@ using Microsoft.Automata;
 using Microsoft.Automata.Rex;
 using System.Text;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class RegexExtensionMethodTests

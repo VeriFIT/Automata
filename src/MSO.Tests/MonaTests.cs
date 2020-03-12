@@ -5,7 +5,7 @@ using Microsoft.Automata.MSO;
 using Microsoft.Automata;
 using System.IO;
 
-namespace MSO.Tests
+namespace Microsoft.MSO.Tests
 {
     [TestClass]
     public class MonaParserTests

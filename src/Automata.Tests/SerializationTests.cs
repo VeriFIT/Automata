@@ -20,7 +20,7 @@ using System.Web;
 
 using System.Linq;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class SerializationTests

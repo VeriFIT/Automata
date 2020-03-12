@@ -4,7 +4,7 @@ using Microsoft.Automata;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class AutomataCompilationTests

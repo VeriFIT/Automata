@@ -6,7 +6,7 @@ using Microsoft.Automata.Generated;
 using System.Text.RegularExpressions;
 
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class UtilitiesTests

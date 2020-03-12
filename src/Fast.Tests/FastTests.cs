@@ -9,7 +9,7 @@ using Microsoft.Fast.AST;
 using Microsoft.Automata.Z3;
 using Microsoft.Z3;
 
-namespace Fast.Tests
+namespace Microsoft.Fast.Tests
 {
     [TestClass]
     public class FastTests

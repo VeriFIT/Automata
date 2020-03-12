@@ -15,7 +15,7 @@ using System.IO;
 using Microsoft.Automata.MSO.Mona;
 using System.Threading;
 
-namespace MSO.Eval
+namespace Microsoft.MSO.Eval
 {
     class LargeMinterm
     {

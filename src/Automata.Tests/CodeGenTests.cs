@@ -8,7 +8,7 @@ using Microsoft.Automata;
 using Microsoft.Automata.Utilities;
 using Microsoft.Automata.Rex;
 
-namespace Automata.Tests
+namespace Microsoft.Automata.Tests
 {
     [TestClass]
     public class CodeGenTests

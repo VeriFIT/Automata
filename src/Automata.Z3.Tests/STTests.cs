@@ -12,7 +12,7 @@ using STz3 = Microsoft.Automata.ST<Microsoft.Z3.FuncDecl, Microsoft.Z3.Expr, Mic
 using Rulez3 = Microsoft.Automata.Rule<Microsoft.Z3.Expr>;
 using STBuilderZ3 = Microsoft.Automata.STBuilder<Microsoft.Z3.FuncDecl, Microsoft.Z3.Expr, Microsoft.Z3.Sort>;
 
-namespace Automata.Z3.Tests
+namespace Microsoft.Automata.Z3.Tests
 {
     [TestClass]
     public class Z3_STTests
