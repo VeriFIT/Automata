@@ -74,6 +74,15 @@ namespace CounterAutomata
             return st.GetStates();
         }
 
+        /// <summary>
+        /// Implements <see cref="IAutomaton{}.GetFinalStates()"/>. 
+        /// ST have final rules, use <see cref="GetFinalRules(int)"/> preferably 
+        /// </summary>
+        IEnumerable<int> IAutomaton<Rule<Expr>>.GetFinalStates()
+        {
+            return ((IAutomaton<Rule<Expr>>)st).GetFinalStates();
+        }
+
         public string DescribeState(int state)
         {
             return "q" + state;
@@ -355,6 +364,11 @@ namespace CounterAutomata
         public IEnumerable<int> GetStates()
         {
             return aut.GetStates();
+        }
+
+        public IEnumerable<int> GetFinalStates()
+        {
+            return aut.GetFinalStates();
         }
 
         public string DescribeState(int state)

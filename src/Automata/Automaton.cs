@@ -13,8 +13,26 @@ namespace Microsoft.Automata
     /// Symbolic Finite Automaton, provides basic generic algorithms for manipulating SFAs
     /// </summary>
     /// <typeparam name="T">type of the labels</typeparam>
-    public class Automaton<T> : IAutomaton<T>
+    public class Automaton<T> : IAutomaton<T>, IAutomaton
     {
+        Type IAutomaton.LabelType =>
+            typeof(T);
+
+        IReadOnlyDictionary<int, string> IAutomaton.GetStateDescriptions() =>
+            this.StateDescriptions;
+
+        object IAutomaton.Algebra => 
+            this.Algebra;
+
+        string IAutomaton.DescribeLabel(object lab) =>
+            this.DescribeLabel((T)lab);
+
+        IEnumerable<IMove> IAutomaton.GetMoves() =>
+            System.Linq.Enumerable.Select(this.GetMoves(), (m => (IMove)m));
+
+        IEnumerable<IMove> IAutomaton.GetMovesFrom(int state) =>
+            System.Linq.Enumerable.Select(this.GetMovesFrom(state), (m => (IMove)m));
+
         protected Dictionary<int, List<Move<T>>> delta;
         protected Dictionary<int, List<Move<T>>> deltaInv;
         private int initialState;
@@ -1644,9 +1662,9 @@ namespace Microsoft.Automata
         }
 
         /**
-	     * Checks whether laut and raut are equivalent using HopcroftKarp on the SFA
-	     * accepting the reverse language
-	    */
+         * Checks whether laut and raut are equivalent using HopcroftKarp on the SFA
+         * accepting the reverse language
+        */
         public static Tuple<Boolean, List<T>> areHKEquivalent(Automaton<T> aut1, Automaton<T> aut2)
         {
             var ds = new UnionFindHopKarp<T>();
@@ -1773,9 +1791,9 @@ namespace Microsoft.Automata
         }
 
         /**
-	     * Checks whether laut and raut are equivalent using HopcroftKarp on the SFA
-	     * accepting the reverse language
-	    */
+         * Checks whether laut and raut are equivalent using HopcroftKarp on the SFA
+         * accepting the reverse language
+        */
         public static Tuple<Boolean, List<T>> areHKEquivalentDeterministic(Automaton<T> aut1, Automaton<T> aut2)
         {
             var ds = new UnionFindHopKarp<T>();

@@ -2,14 +2,46 @@
 
 namespace Microsoft.Automata
 {
+    public interface IMove
+    {
+        /// <summary>
+        /// Source state of the move
+        /// </summary>
+        int SourceState { get; }
+        /// <summary>
+        /// Target state of the move
+        /// </summary>
+        int TargetState { get; }
+        /// <summary>
+        /// Label of the move
+        /// </summary>
+        object Label { get; }
+    }
+
+    public interface IMove<L> : IMove
+    {
+        /// <summary>
+        /// Label of the move
+        /// </summary>
+        new L Label { get; }
+    }
+
     /// <summary>
     /// Represents a move of a symbolic finite automaton.
     /// The value default(L) is reserved to represent the label of an epsilon move.
     /// Thus if S is a reference type the label of an epsilon move is null.
     /// </summary>
     /// <typeparam name="L">the type of the labels on moves</typeparam>
-    public class Move<L>
+    public class Move<L> : IMove<L>
     {
+        int IMove.SourceState => this.SourceState;
+
+        int IMove.TargetState => this.TargetState;
+
+        object IMove.Label => this.Label;
+
+        L IMove<L>.Label => this.Label;
+
         /// <summary>
         /// Source state of the move
         /// </summary>

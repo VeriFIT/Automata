@@ -1072,6 +1072,11 @@ namespace Microsoft.Automata
                 return aut.IsFinalState(state);
             }
 
+            public IEnumerable<int> GetFinalStates()
+            {
+                return aut.GetFinalStates();
+            }
+
             public IEnumerable<Move<BDD>> GetMoves()
             {
                 return aut.GetMoves();

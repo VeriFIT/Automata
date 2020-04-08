@@ -629,7 +629,7 @@ namespace Microsoft.Automata
 
         #endregion
 
-        #region IAutomaton<Rule> Members
+        #region IAutomaton<Rule<>> Members
 
         public int InitialState
         {
@@ -654,6 +654,15 @@ namespace Microsoft.Automata
         public IEnumerable<int> GetStates()
         {
             return automaton.GetStates();
+        }
+
+        /// <summary>
+        /// Implements <see cref="IAutomaton{}.GetFinalStates()"/>. 
+        /// ST have final rules, use <see cref="GetFinalRules(int)"/> preferably 
+        /// </summary>
+        public IEnumerable<int> GetFinalStates()
+        {
+            return automaton.GetFinalStates();
         }
 
         public string DescribeState(int state)

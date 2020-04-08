@@ -2410,6 +2410,16 @@ namespace Microsoft.Automata
                 return states.Keys;
             }
 
+            /// <summary>
+            /// Implemented using Where().Select() for all <see cref="SymbolicRegexNode{}.IsNullable"/> 
+            /// </summary>
+            public IEnumerable<int> GetFinalStates()
+            {
+                return System.Linq.Enumerable.Select(
+                    System.Linq.Enumerable.Where(states, kvp => kvp.Value.isNullable),
+                    kvp => kvp.Key);
+            }
+
             public bool IsFinalState(int state)
             {
                 return states[state].isNullable;

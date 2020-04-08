@@ -455,7 +455,7 @@ namespace Microsoft.Automata
         #endregion
 
 
-        #region IAutomaton Members
+        #region IAutomaton<> Members
 
         public int InitialState
         {
@@ -475,6 +475,11 @@ namespace Microsoft.Automata
         public IEnumerable<int> GetStates()
         {
             return automaton.GetStates();
+        }
+
+        public IEnumerable<int> GetFinalStates()
+        {
+            return automaton.GetFinalStates();
         }
 
         public string DescribeState(int state)
