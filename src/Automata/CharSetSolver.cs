@@ -854,7 +854,7 @@ namespace Microsoft.Automata
         public void SaveAsDot(Automaton<BDD> aut, string name, string file)
         {
             var autwrap = new AutWrapper(aut, this);
-            DirectedGraphs.DotWriter.AutomatonToDot(this.PrettyPrint, autwrap, name, file, DirectedGraphs.DotWriter.RANKDIR.LR, 12, true);
+            DirectedGraphs.DotWriter.AutomatonToDot(this.PrettyPrint, autwrap, name, file, showName: true);
         }
 
         /// <summary>

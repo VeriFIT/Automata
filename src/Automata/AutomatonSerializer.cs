@@ -36,7 +36,7 @@ namespace Microsoft.Automata
         /// </summary>
         public void SaveAsDot()
         {
-            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, __name, DirectedGraphs.DotWriter.RANKDIR.LR, 12, true);
+            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, __name, showName: true);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Microsoft.Automata
         /// </summary>
         public void SaveAsDot(string file)
         {
-            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, file, DirectedGraphs.DotWriter.RANKDIR.LR, 12, true);
+            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, file, showName: true);
         }
 
         /// <summary>
@@ -60,7 +60,9 @@ namespace Microsoft.Automata
         /// </summary>
         public void SaveAsDot(System.IO.TextWriter tw)
         {
-            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, tw, DirectedGraphs.DotWriter.RANKDIR.TB, 12, true);
+            // the original code here specifically used rankdir=TB
+            var dotConfig = new DirectedGraphs.DotWriter.Config { rankdir = DirectedGraphs.DotWriter.RANKDIR.TB };
+            Microsoft.Automata.DirectedGraphs.DotWriter.AutomatonToDot<TERM>(__aut.DescribeLabel, __aut, __name, tw, showName: true, config: dotConfig);
         }
 
         public virtual void ShowGraph(int k)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +12,7 @@ namespace Microsoft.Automata.DirectedGraphs
         public static int MaxDgmlTransitionLabelLength = 50;
     }
 
-    internal static class DgmlWriter
+    public static class DgmlWriter
     {
         #region storing SFAs as graphs in dgml format
 
@@ -131,12 +131,12 @@ namespace Microsoft.Automata.DirectedGraphs
         /// Write the automaton in dgml format in the current directory.
         /// </summary>
         /// <param name="fa">the automaton to write</param>
-        /// <param name="name">the name of the output file, if filename does not end with .dgml then .dgml is added as suffix</param>
-        public static void SaveGraph<S>(int k, IAutomaton<S> fa, string name, Func<S, string> describeS = null)
+        /// <param name="fileName">the name of the output file, if filename does not end with .dgml then .dgml is added as suffix</param>
+        public static void SaveGraph<S>(int k, IAutomaton<S> fa, string fileName, Func<S, string> describeS = null, string name = null)
         {
-            string filename = name + (name.EndsWith(".dgml") ? "" : ".dgml");
+            string filename = fileName + (fileName.EndsWith(".dgml") ? "" : ".dgml");
             System.IO.StreamWriter sw = new System.IO.StreamWriter(filename);
-            AutomatonToDgml(k, fa, name, sw, describeS);
+            AutomatonToDgml(k, fa, name ?? fileName, sw, describeS);
             sw.Close();
         }
 

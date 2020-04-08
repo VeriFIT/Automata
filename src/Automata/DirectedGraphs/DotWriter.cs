@@ -11,7 +11,7 @@ namespace Microsoft.Automata.DirectedGraphs
     /// <summary>
     /// Provides functionality for producing dot output.
     /// </summary>
-    internal static class DotWriter
+    public static class DotWriter
     {
         /// <summary>
         /// Used for saving automata as graphs in dot format.
@@ -20,6 +20,85 @@ namespace Microsoft.Automata.DirectedGraphs
         public enum RANKDIR
         {
             LR, TB, BT, RL
+        }
+
+        public enum Shape
+        {
+            box,
+            polygon,
+            ellipse,
+            oval,
+            circle,
+            point,
+            egg,
+            triangle,
+            plaintext,
+            plain,
+            diamond,
+            trapezium,
+            parallelogram,
+            house,
+            pentagon,
+            hexagon,
+            septagon,
+            octagon,
+            doublecircle,
+            doubleoctagon,
+            tripleoctagon,
+            invtriangle,
+            invtrapezium,
+            invhouse,
+            Mdiamond,
+            Msquare,
+            Mcircle,
+            rect,
+            rectangle,
+            square,
+            star,
+            none,
+            underline,
+            cylinder,
+            note,
+            tab,
+            folder,
+            box3d,
+            component,
+            promoter,
+            cds,
+            terminator,
+            utr,
+            primersite,
+            restrictionsite,
+            fivepoverhang,
+            threepoverhang,
+            noverhang,
+            assembly,
+            signature,
+            insulator,
+            ribosite,
+            rnastab,
+            proteasesite,
+            proteinstab,
+            rpromoter, 
+            larrow,
+            lpromoter
+        }
+
+        public class Config
+        {
+            public RANKDIR rankdir;
+            public int fontsize;
+            public Shape shape;
+
+            /// <summary>
+            /// Default values
+            /// </summary>
+            public Config()
+            {
+                rankdir = RANKDIR.LR; 
+                fontsize = 12; 
+                shape = Shape.circle;
+            }
         }
 
         #region storing BDDs as graphs using dot
@@ -211,11 +290,11 @@ namespace Microsoft.Automata.DirectedGraphs
         /// <param name="rankdir">the main direction of the arrows</param>
         /// <param name="fontsize">the size of the font in labels</param>
         /// <param name="descr">function that describes the labels as strings</param>
-        public static void AutomatonToDot<S>(Func<S, string> descr, IAutomaton<S> fa, string faName, string filename, RANKDIR rankdir, int fontsize, bool showName = false)
+        public static void AutomatonToDot<S>(Func<S, string> descr, IAutomaton<S> fa, string faName, string filename, bool showName = false, Config config = null)
         {
             string fname = (filename.EndsWith(".dot") ? filename : filename + ".dot");
             System.IO.StreamWriter sw = new System.IO.StreamWriter(fname);
-            AutomatonToDot(descr, fa, faName, sw, rankdir, fontsize, showName);
+            AutomatonToDot(descr, fa, faName, sw, showName, config ?? new Config());
             sw.Close();
         }
 
@@ -228,11 +307,15 @@ namespace Microsoft.Automata.DirectedGraphs
         /// <param name="rankdir">the main direction of the arrows</param>
         /// <param name="fontsize">the size of the font in labels</param>
         /// <param name="descr">function that describes the labels as strings</param>
-        public static void AutomatonToDot<S>(Func<S, string> descr, IAutomaton<S> fa, string faName, System.IO.TextWriter tw, RANKDIR rankdir, int fontsize, bool showName)
+        public static void AutomatonToDot<S>(Func<S, string> descr, IAutomaton<S> fa, string faName, System.IO.TextWriter tw, bool showName, Config config)
         {
+            // TODO: find why is this here
             ITransducer<S> faf = fa as ITransducer<S>;
+            // TODO: this is ineffective, hoist the faf == null check before the delegate assignment
             Func<S, bool> isfinal = lab => { return (faf == null ? false : faf.IsFinalRule(lab)); };
 
+            // TODO: this block is mostly unused! clean up!
+            // only finalLabels are used
             List<Move<S>> epsilonmoves = new List<Move<S>>();
             Dictionary<Tuple<int, int>, string> nonepsilonMoves = new Dictionary<Tuple<int, int>, string>();
             Dictionary<int, string> finalLabels = new Dictionary<int, string>();
@@ -264,29 +347,34 @@ namespace Microsoft.Automata.DirectedGraphs
                 }
 
 
-
-
+            
             tw.WriteLine("digraph \"" + faName + "\" {");
-            tw.WriteLine(string.Format("rankdir={0}; fontsize={1};", rankdir.ToString(), fontsize));
+            tw.WriteLine(string.Format("rankdir={0}; fontsize={1};", config.rankdir.ToString(), config.fontsize));
             tw.WriteLine();
-            tw.WriteLine("//Initial state");
-            tw.WriteLine(string.Format("preInit [style = filled, shape = plaintext, color = {1}, fillcolor = white, label = \"{0}\"]", (showName ? faName + ": " : " "), (showName ? "black" : "white")));
-            tw.WriteLine("//Final states");
+            tw.WriteLine("//Defaults");
+            tw.WriteLine(string.Format($"node [style = filled, shape = " + config.shape.ToString() + ", fillcolor = white, fontsize = {0}, margin = 0.025]", config.fontsize));
+            tw.WriteLine(string.Format("edge [ fontsize = {0} ]", config.fontsize));
+            tw.WriteLine();
+            tw.WriteLine("//Final states format");
+            // TODO: this is in-effective, could be improved
             foreach (int state in fa.GetStates())
             {
                 if (fa.IsFinalState(state) && !finalLabels.ContainsKey(state))
-                    tw.WriteLine(string.Format("{1} [style = filled, shape = circle, fillcolor = white, fontsize = {0}, peripheries=2]", fontsize, state));
+                    tw.WriteLine(string.Format("{0} [peripheries=2]", state));
                 if (fa.IsFinalState(state) && finalLabels.ContainsKey(state))
                 {
-                    tw.WriteLine(string.Format("{1} [style = filled, shape = circle, fillcolor = white, fontsize = {0}]", fontsize, state));
-                    tw.WriteLine(string.Format("f{0} [style = filled, shape = box, fillcolor = white, label=\"\", peripheries=2]", state));
+                    tw.WriteLine(string.Format("{0} []", state));
+                    tw.WriteLine(string.Format("f{0} [shape = box, label=\"\", peripheries=2]", state));
                 }
             }
+            tw.WriteLine("//Initial state format");
+            showName = showName && !string.IsNullOrEmpty(faName);
+            tw.WriteLine(string.Format("preInit [shape = plaintext, color = {1}, label = \"{0}\"]", (showName ? faName + ": " : ""), (showName ? "black" : "white")));
+
             tw.WriteLine();
-            tw.WriteLine("//Other states");
+            tw.WriteLine("//All states");
             foreach (int state in fa.GetStates())
-                if (!fa.IsFinalState(state))
-                    tw.WriteLine(string.Format("{1} [style = filled, shape = circle, fillcolor = white, fontsize = {0}]", fontsize, state));
+                tw.WriteLine(string.Format("{0} [label = \"{1}\"]", state, fa.DescribeState(state)));
             tw.WriteLine();
             tw.WriteLine("//Transitions");
             tw.WriteLine(string.Format("preInit -> {0}", fa.InitialState));
@@ -294,14 +382,14 @@ namespace Microsoft.Automata.DirectedGraphs
             {
                 if (!isfinal(t.Label))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"{3}, fontsize = {4} ];", t.SourceState, t.TargetState,
+                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"{3} ];", t.SourceState, t.TargetState,
                         t.IsEpsilon ? "()" : descr(t.Label).Replace(@"\n", @"\x0A"),
-                        t.IsEpsilon ? "" : "", fontsize));
+                        t.IsEpsilon ? "" : ""));
                 }
                 else if (finalLabels.ContainsKey(t.SourceState))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\", fontsize = {3} ];", t.SourceState, "f"+t.TargetState,
-                 finalLabels[t.SourceState].Replace(@"\n", @"\x0A"), fontsize));
+                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\" ];", t.SourceState, "f"+t.TargetState,
+                 finalLabels[t.SourceState].Replace(@"\n", @"\x0A")));
                 }
             }
             tw.WriteLine("}");
