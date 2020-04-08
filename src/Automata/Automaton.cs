@@ -437,6 +437,8 @@ namespace Microsoft.Automata
             get { return finalStateSet.Count == 1 && StateCount == 1 && delta[initialState].Count == 0 && DoesNotContainWordBoundaries; }
         }
 
+        public IReadOnlyDictionary<int, string> StateDescriptions;
+
         /// <summary>
         /// Create a symbolic automaton.
         /// </summary>
@@ -5231,6 +5233,8 @@ namespace Microsoft.Automata
         /// </summary>
         public virtual string DescribeState(int state)
         {
+            if (StateDescriptions != null && StateDescriptions.TryGetValue(state, out var desc))
+                return desc;
             return state.ToString();
         }
 
