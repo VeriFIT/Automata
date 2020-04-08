@@ -11,7 +11,7 @@ using Microsoft.Automata.Z3.Internal;
 using Microsoft.Automata;
 using Microsoft.Z3;
 using System.Diagnostics;
-using Automata.Tests;
+using Microsoft.Automata.Tests;
 
 namespace RunExperiments
 {
