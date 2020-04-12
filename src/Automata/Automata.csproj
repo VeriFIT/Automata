@@ -1,102 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Automata</RootNamespace>
+    <TargetFrameworks>net45</TargetFrameworks>    
+    <Platforms>AnyCPU;x64;x86</Platforms>    
+  </PropertyGroup>
+  <PropertyGroup>
     <AssemblyName>Microsoft.Automata</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\AnyCPU\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;REX,EXPORT_GPPG;UNSAFE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\AnyCPU\Release\</OutputPath>
-    <DefineConstants>TRACE;REX,EXPORT_GPPG,INLINE,UNSAFE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;REX,EXPORT_GPPG,UNSAFE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;REX,EXPORT_GPPG,INLINE,UNSAFE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\x64\Release\Microsoft.Automata.XML</DocumentationFile>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+    <RootNamespace>Microsoft.Automata</RootNamespace>
+    <Product>Automata</Product>
+    <Company></Company>
+    <Copyright>Copyright ©  2017</Copyright>
+    <Version>1.0.2</Version>
+  </PropertyGroup>  
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>AutomataKey.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;REX,EXPORT_GPPG</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>  
+  <PropertyGroup>
+    <!-- there is some unsafe code outside of UNSAFE-guarded blocks is let's enable it globally -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;REX,EXPORT_GPPG</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  <!-- this does not work, because all properties were not resolved yet -->
+  <!-- <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'"> -->
+  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'net'">
+    <!-- Properties for .NET Framework -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\$(Platform)\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;REX;EXPORT_GPPG;UNSAFE</DefineConstants>
+    <!-- 
+    This is enforced here to support DGML showing in current VS, 
+    maybe it is enabled by default and not neccessary.
+    Introduced in 52a715f442ff840af26bc708c7ed656500558789
+    Support for DGML in VS disabled in fb1073e6df71927aa6f7c42dbddf003907ea4071
+    -->
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <OutputPath>bin\$(Platform)\Release\</OutputPath>
+    <DefineConstants>TRACE;REX;EXPORT_GPPG;INLINE;UNSAFE</DefineConstants>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <!-- x86 build seems to not support UNSAFE and INLINE, but maybe it is a glitch-pattern in the original configuration -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DefineConstants>TRACE;DEBUG;REX,EXPORT_GPPG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineConstants>TRACE;REX,EXPORT_GPPG</DefineConstants>
+  </PropertyGroup>  
   <PropertyGroup>
+    <!-- maybe can be removed? -->
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <!--
+    Setting this to false disables auto-inclusion of files for compilation, embedding and others
+    Can be disabled when all **\*.cs files in project are ment to be compiled or are specificaly removed with
+    <Compile Remove="Abcd.cs" />
+    -->
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+  <!-- assembly and package references -->
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.1.4" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.0.4" />
   </ItemGroup>
+  <!-- source code and other includes -->
   <ItemGroup>
     <Compile Include="BasicCountingSet.cs" />
     <Compile Include="BooleanAlgebras\BV64Algebra.cs" />
@@ -217,6 +199,12 @@
     <Compile Include="Internal\STbSimulator.cs" />
     <Compile Include="STBuilder.cs" />
     <Compile Include="Internal\StringUtility.cs" />
+    <Compile Include="Internal\ThreeAutomaton.cs" />
+    <Compile Include="Internal\UnionFindHopKarp.cs" />
+    <Compile Include="Utilities\UTF8Encoding.cs" />
+    <Compile Include="Utilities\VectorizedIndexOf.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Templates\AutomataTextTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,10 +220,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AutomatonTextTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Internal\ThreeAutomaton.cs" />
-    <Compile Include="Internal\UnionFindHopKarp.cs" />
-    <Compile Include="Utilities\UTF8Encoding.cs" />
-    <Compile Include="Utilities\VectorizedIndexOf.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Templates\AutomataTextTemplate.tt">
@@ -252,22 +236,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <!-- Text templating service -->
+    <!-- https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/bb932394(v=vs.100)/ -->
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AutomataKey.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

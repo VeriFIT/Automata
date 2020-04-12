@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automata", "src\Automata\Automata.csproj", "{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automata", "src\Automata\Automata.csproj", "{BC861E29-027D-4AC6-AB24-A7B0CD0FB5E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automata.Tests", "src\Automata.Tests\Automata.Tests.csproj", "{D437274D-5BFD-42FD-BBE5-96C4C0FFBA05}"
 EndProject
