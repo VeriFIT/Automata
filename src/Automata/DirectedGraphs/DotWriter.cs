@@ -355,8 +355,13 @@ namespace Microsoft.Automata.DirectedGraphs
             tw.WriteLine(string.Format($"node [style = filled, shape = " + config.shape.ToString() + ", fillcolor = white, fontsize = {0}, margin = 0.01]", config.fontsize));
             tw.WriteLine(string.Format("edge [ fontsize = {0} ]", config.fontsize));
             tw.WriteLine();
-            tw.WriteLine("//Final states format");
-            // TODO: this is in-effective, could be improved
+            tw.WriteLine("//Initial state format");
+            {
+                showName = showName && !string.IsNullOrEmpty(faName);
+                tw.WriteLine(string.Format("preInit [shape = plaintext, color = {1}, label = \"{0}\"]", (showName ? faName + ": " : ""), (showName ? "black" : "white")));
+            }
+            tw.WriteLine();
+            tw.WriteLine("// All other states format");
             foreach (int state in fa.GetStates())
             {
                 if (fa.IsFinalState(state) && !finalLabels.ContainsKey(state))
@@ -366,15 +371,8 @@ namespace Microsoft.Automata.DirectedGraphs
                     tw.WriteLine(string.Format("{0} []", state));
                     tw.WriteLine(string.Format("f{0} [shape = box, label=\"\", peripheries=2]", state));
                 }
-            }
-            tw.WriteLine("//Initial state format");
-            showName = showName && !string.IsNullOrEmpty(faName);
-            tw.WriteLine(string.Format("preInit [shape = plaintext, color = {1}, label = \"{0}\"]", (showName ? faName + ": " : ""), (showName ? "black" : "white")));
-
-            tw.WriteLine();
-            tw.WriteLine("//All states");
-            foreach (int state in fa.GetStates())
                 tw.WriteLine(string.Format("{0} [label = \"{1}\"]", state, fa.DescribeState(state)));
+            }
             tw.WriteLine();
             tw.WriteLine("//Transitions");
             tw.WriteLine(string.Format("preInit -> {0}", fa.InitialState));
