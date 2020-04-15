@@ -352,7 +352,7 @@ namespace Microsoft.Automata.DirectedGraphs
             tw.WriteLine(string.Format("rankdir={0}; fontsize={1};", config.rankdir.ToString(), config.fontsize));
             tw.WriteLine();
             tw.WriteLine("//Defaults");
-            tw.WriteLine(string.Format($"node [style = filled, shape = " + config.shape.ToString() + ", fillcolor = white, fontsize = {0}, margin = 0.025]", config.fontsize));
+            tw.WriteLine(string.Format($"node [style = filled, shape = " + config.shape.ToString() + ", fillcolor = white, fontsize = {0}, margin = 0.01]", config.fontsize));
             tw.WriteLine(string.Format("edge [ fontsize = {0} ]", config.fontsize));
             tw.WriteLine();
             tw.WriteLine("//Final states format");
