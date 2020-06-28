@@ -261,6 +261,9 @@ namespace Microsoft.Automata
         }
 
 
+        /// <summary>
+        /// The automaton that accepts nothing.
+        /// </summary>
         public static Automaton<T> MkEmpty(IBooleanAlgebra<T> algebra)
         {
             var fsa = new Automaton<T>();
@@ -297,7 +300,7 @@ namespace Microsoft.Automata
         }
 
         /// <summary>
-        /// The automaton that accepts nothing.
+        /// The automaton that accepts anything.
         /// </summary>
         public static Automaton<T> MkFull(IBooleanAlgebra<T> algebra)
         {
