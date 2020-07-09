@@ -560,7 +560,7 @@ namespace CounterAutomata
         //        subst[Ctr(i)] = Ctr(i + A.k);
         //        subst[Ctr_(i)] = Ctr_(i + A.k);
         //    }
-        //    var B1 = B.aut.RelpaceAllGuards(x => z3p.ApplySubstitution(x, subst));
+        //    var B1 = B.aut.ReplaceAllGuards(x => z3p.ApplySubstitution(x, subst));
         //    //lift A to rules
 
 

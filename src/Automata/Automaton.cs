@@ -542,7 +542,7 @@ namespace Microsoft.Automata
         /// <summary>
         /// Convert the automaton to an automaton where each guard p has been replaced with transform(p).
         /// </summary>
-        public Automaton<T> RelpaceAllGuards(Func<T, T> transform)
+        public Automaton<T> ReplaceAllGuards(Func<T, T> transform)
         {
             List<Move<T>> moves1 = new List<Move<T>>();
             foreach (var move in GetMoves())

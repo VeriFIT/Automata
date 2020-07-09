@@ -147,7 +147,7 @@ namespace Microsoft.Automata
                     
             //    };
 
-            //var aut = A2B.ToST(true).automaton.RelpaceAllGuards(ReplaceWithEpsilon);
+            //var aut = A2B.ToST(true).automaton.ReplaceAllGuards(ReplaceWithEpsilon);
 
 
             return A2B;
