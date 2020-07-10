@@ -1616,12 +1616,13 @@ namespace Microsoft.Automata
         /// </summary>
         public Automaton<T> PrefixLanguage()
         {
-            List<Move<T>> newMoves = new List<Move<T>>(this.GetMoves());
-            int newFinalState = maxState + 1;
-            foreach (var state in States)
-                newMoves.Add(Move<T>.Epsilon(state, newFinalState));
-
-            return Create(this.algebra, initialState, new int[] { newFinalState }, newMoves);
+            var newAtm = new Automaton<T>(this);
+            newAtm.delta = new Dictionary<int, List<Move<T>>>(delta);
+            newAtm.deltaInv = new Dictionary<int, List<Move<T>>>(deltaInv);
+            newAtm.finalStateSet = new HashSet<int>(finalStateSet);
+            newAtm.EliminateDeadStates();
+            newAtm.finalStateSet = new HashSet<int>(States);
+            return newAtm;
         }
 
         static void CheckIdentityOfAlgebras(IBooleanAlgebra<T> solver1, IBooleanAlgebra<T> solver2)
