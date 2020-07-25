@@ -467,7 +467,7 @@ namespace Microsoft.Automata
         /// <param name="finalStates">final states</param>
         /// <param name="moves">moves</param>
         /// <returns></returns>
-        public static Automaton<T> Create(IBooleanAlgebra<T> algebra, int initialState, IEnumerable<int> finalStates, IEnumerable<Move<T>> moves, bool eliminateUnrreachableStates = false, bool eliminateDeadStates = false, bool deterministic = false)
+        public static Automaton<T> Create(IBooleanAlgebra<T> algebra, int initialState, IEnumerable<int> finalStates, IEnumerable<Move<T>> moves, bool eliminateUnreachableStates = false, bool eliminateDeadStates = false, bool deterministic = false)
         {
             var delta = new Dictionary<int, List<Move<T>>>();
             var deltaInv = new Dictionary<int, List<Move<T>>>();
@@ -506,8 +506,8 @@ namespace Microsoft.Automata
             fsa.delta = delta;
             fsa.deltaInv = deltaInv;
             fsa.isDeterministic = isDeterministic;
-            if (eliminateUnrreachableStates)
-                fsa.EliminateUnrreachableStates();
+            if (eliminateUnreachableStates)
+                fsa.EliminateUnreachableStates();
             if (eliminateDeadStates)
                 fsa.EliminateDeadStates();
             return fsa;
@@ -1522,7 +1522,7 @@ namespace Microsoft.Automata
         /// <summary>
         /// Eliminate all non-initial states from the automaton from which no final state is recahable 
         /// </summary>
-        public void EliminateUnrreachableStates()
+        public void EliminateUnreachableStates()
         {
             //forward reachability, keep only states that are reacable fron the initial state
             Stack<int> stack = new Stack<int>();
@@ -5500,7 +5500,7 @@ namespace Microsoft.Automata
 
             wordBoundaries = null;
             //((CharSetSolver)solver).ShowGraph(this as Automaton<BvSet>, "foo");
-            EliminateUnrreachableStates();
+            EliminateUnreachableStates();
             EliminateDeadStates();
         }
 

@@ -211,7 +211,7 @@ namespace Microsoft.Automata
         {
             var aut = Automaton<Rule<TERM>>.Create(null, initialState, ExtractFinalStates(movesAndFinalOutputs),
               movesAndFinalOutputs);
-            aut.EliminateUnrreachableStates();
+            aut.EliminateUnreachableStates();
             aut.EliminateDeadStates();
             return new ST<FUNC, TERM, SORT>(solver, name, initialRegister, inSort, outSort, regSort,
               aut, AllYieldsAreEmpty(aut.GetMoves()));

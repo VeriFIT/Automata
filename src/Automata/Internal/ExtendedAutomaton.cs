@@ -160,7 +160,7 @@ namespace Microsoft.Automata
         /// <param name="finalStates">final states</param>
         /// <param name="moves">moves</param>
         /// <returns></returns>
-        public static ExtendedAutomaton<S> Create(int initialState, IEnumerable<ExtendedMove<S>> moves, bool eliminateUnrreachableStates = false, bool eliminateDeadStates = false)
+        public static ExtendedAutomaton<S> Create(int initialState, IEnumerable<ExtendedMove<S>> moves, bool eliminateUnreachableStates = false, bool eliminateDeadStates = false)
         {
             var delta = new Dictionary<int, List<ExtendedNormalMove<S>>>();
             var deltaInv = new Dictionary<int, List<ExtendedNormalMove<S>>>();
@@ -207,8 +207,8 @@ namespace Microsoft.Automata
             fsa.deltaInv = deltaInv;
             fsa.finalMoves = finalMoves;
             fsa.isDeterministic = isDeterministic;
-            if (eliminateUnrreachableStates)
-                fsa.EliminateUnrreachableStates();
+            if (eliminateUnreachableStates)
+                fsa.EliminateUnreachableStates();
             if (eliminateDeadStates)
                 fsa.EliminateDeadStates();
             return fsa;
@@ -363,7 +363,7 @@ namespace Microsoft.Automata
         /// <summary>
         /// Eliminate all non-initial states from the automaton from which no final state is recahable 
         /// </summary>
-        public void EliminateUnrreachableStates()
+        public void EliminateUnreachableStates()
         {
             //forward reachability, keep only states that are reacable fron the initial state
             Stack<int> stack = new Stack<int>();
