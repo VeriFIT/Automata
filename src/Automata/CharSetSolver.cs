@@ -386,19 +386,15 @@ namespace Microsoft.Automata
             {
                 return "[0-[0]]";
             }
-            if (ComputeDomainSize(MkNot(set)) <= 3)
+
+            string straightDescribe = regexConverter.Describe(set);
+            string negatedDescribe;
             {
-                string res = "[^";
-                foreach (var c in GenerateAllCharactersInOrder(MkNot(set)))
-                {
-                    res += StringUtility.Escape((char)c);
-                }
-                res += "]";
-                return res;
+                string desc = regexConverter.Describe(MkNot(set));
+                negatedDescribe = "[^" + ((desc.Length > 1 && desc.StartsWith("[")) ? desc.Substring(1, desc.Length - 2) : desc) + "]";
             }
 
-            else
-                return regexConverter.Describe(set);
+            return straightDescribe.Length < negatedDescribe.Length ? straightDescribe : negatedDescribe;
         }
 
         /// <summary>
