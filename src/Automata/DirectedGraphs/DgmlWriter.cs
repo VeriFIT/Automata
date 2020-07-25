@@ -59,9 +59,10 @@ namespace Microsoft.Automata.DirectedGraphs
                 ShowGraphInVS(k, fa, name, describeS);
                 return;
             }
-#endif
+#else
             SaveGraph(k, fa, name, describeS);
             OpenFileInNewProcess(name + (name.EndsWith(".dgml") ? "" : ".dgml"));
+#endif
         }
 
 #if NETFRAMEWORK
@@ -121,12 +122,19 @@ namespace Microsoft.Automata.DirectedGraphs
             {
                 try
                 {
-                    //second try tom access VS 2017
+                    //second try to access VS 2017
                     VS = System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE.15.0");
                 }
                 catch (Exception)
                 {
-
+                    try
+                    {
+                       //third try to access VS 2019
+                       VS = System.Runtime.InteropServices.Marshal.GetActiveObject("VisualStudio.DTE.16.0");
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
         }
@@ -148,7 +156,29 @@ namespace Microsoft.Automata.DirectedGraphs
         private static void OpenFileInNewProcess(string file)
         {
             System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo = new System.Diagnostics.ProcessStartInfo(file);
+
+            string opener = null;
+#if NETFRAMEWORK
+            if (Environment.OSVersion.ToString().Contains("indows"))
+                opener = "explorer";
+            else if (Environment.OSVersion.ToString().Contains("mac"))
+                opener = "open";
+            else if (Environment.OSVersion.ToString().Contains("inux"))
+                opener = "xdg-open";
+#else
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                opener = "explorer";
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                opener = "open";
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+                opener = "xdg-open";
+#endif
+
+            if (opener == null)
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(file);
+            else
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(opener, file);
+
             p.StartInfo.WorkingDirectory = System.Environment.CurrentDirectory;
             p.Start();
         }
