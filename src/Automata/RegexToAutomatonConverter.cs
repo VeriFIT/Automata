@@ -639,7 +639,7 @@ namespace Microsoft.Automata
 
         #region IDescribe<S> Members
 
-        public string Describe(S label)
+        public virtual string Describe(S label)
         {
             if (!description.ContainsKey(label))
             {
@@ -956,10 +956,13 @@ namespace Microsoft.Automata
         //    return new RegexToAutomatonConverterCharSet(solver);
         //}
 
+        // TODO: Hack, because the description in the base class gets (at least in Regeg...CharSet) loaded with potentialy different values
+        internal Dictionary<BDD, string> descriptionDescribe = new Dictionary<BDD, string>();
+
         /// <summary>
         /// Describe the bdd as a regex character set
         /// </summary>
-        new public string Describe(BDD label)
+        override public string Describe(BDD label)
         {
 
             string res;
@@ -968,6 +971,10 @@ namespace Microsoft.Automata
             //    string res1 = res.Replace(@"\p{Nd}", @"\d").Replace(@"\P{Nd}", @"\D");
             //    return res1;
             //}
+            if (descriptionDescribe.TryGetValue(label, out res))
+            {
+                return res;
+            }
             if (this.categorizer.CategoryCondition(8) == label)
                 return @"\d";
             if (this.Solver.MkNot(this.categorizer.CategoryCondition(8)) == label)
@@ -990,7 +997,8 @@ namespace Microsoft.Automata
             if (ranges.Length == 1 && ranges[0].Item1 == ranges[0].Item2)
             {
                 string res1 = StringUtility.Escape((char)ranges[0].Item1);
-                description[label] = res1;
+                ////description[label] = res1;
+                descriptionDescribe[label] = res1;
                 return res1;
             }
 
@@ -1013,7 +1021,8 @@ namespace Microsoft.Automata
                 }
             }
             res += "]";
-            description[label] = res;
+            ////description[label] = res;
+            descriptionDescribe[label] = res;
             return res;
         }
 
@@ -1063,11 +1072,9 @@ namespace Microsoft.Automata
         /// <summary>
         /// Describe range set
         /// </summary>
-        new public string Describe(HashSet<Tuple<char, char>> label)
+        override public string Describe(HashSet<Tuple<char, char>> label)
         {
-
-            string res;
-            res = "";
+            string res = "";
             List<Tuple<char, char>> ranges = new List<Tuple<char, char>>(label);
             for (int i = 0; i < ranges.Count; i++)
             {
@@ -1135,16 +1142,23 @@ namespace Microsoft.Automata
             this.chooser = new Chooser();
         }
 
+        // TODO: Hack, because the description in the base class gets (at least in Regeg...CharSet) loaded with potentialy different values
+        internal Dictionary<HashSet<char>, string> descriptionDescribe = new Dictionary<HashSet<char>, string>();
+
         /// <summary>
         /// Describe hash set
         /// </summary>
-        new public string Describe(HashSet<char> label)
+        override public string Describe(HashSet<char> label)
         {
+            string res;
+            if (descriptionDescribe.TryGetValue(label, out res))
+                return res;
+
             var ranges = new Utilities.Ranges();
             foreach (char c in label)
                 ranges.Add((int)c);
 
-            string res = "";
+            res = "";
             for (int i = 0; i < ranges.ranges.Count; i++)
             {
                 var range = ranges.ranges[i];
@@ -1161,7 +1175,8 @@ namespace Microsoft.Automata
                 if (i < ranges.ranges.Count - 1)
                     res += "|";
             }
-            description[label] = res;
+            ////description[label] = res;
+            descriptionDescribe[label] = res;
             return res;
         }
 
