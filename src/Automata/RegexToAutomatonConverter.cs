@@ -996,7 +996,7 @@ namespace Microsoft.Automata
             var ranges = bddBuilder.ToRanges(label);
             if (ranges.Length == 1 && ranges[0].Item1 == ranges[0].Item2)
             {
-                string res1 = StringUtility.Escape((char)ranges[0].Item1);
+                string res1 = StringUtility.Escape_MichalKotoun((char)ranges[0].Item1);
                 ////description[label] = res1;
                 descriptionDescribe[label] = res1;
                 return res1;
@@ -1007,17 +1007,17 @@ namespace Microsoft.Automata
             {
                 var range = ranges[i];
                 if (range.Item1 == range.Item2)
-                    res += StringUtility.EscapeWithNumericSpace((char)range.Item1);
+                    res += StringUtility.Escape_MichalKotoun((char)range.Item1);
                 else if (range.Item1 == range.Item2 - 1)
                 {
-                    res += StringUtility.EscapeWithNumericSpace((char)range.Item1);
-                    res += StringUtility.EscapeWithNumericSpace((char)range.Item2);
+                    res += StringUtility.Escape_MichalKotoun((char)range.Item1);
+                    res += StringUtility.Escape_MichalKotoun((char)range.Item2);
                 }
                 else
                 {
-                    res += StringUtility.EscapeWithNumericSpace((char)range.Item1);
+                    res += StringUtility.Escape_MichalKotoun((char)range.Item1);
                     res += "-";
-                    res += StringUtility.EscapeWithNumericSpace((char)range.Item2);
+                    res += StringUtility.Escape_MichalKotoun((char)range.Item2);
                 }
             }
             res += "]";

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.Automata
 {
@@ -89,6 +90,58 @@ namespace Microsoft.Automata
                          && !(((int)'0') <= code && code <= ((int)'9')))
                     {
                         return string.Format("\\x{0:X}", code);
+                    }
+                    else
+                        return c.ToString();
+            }
+        }
+
+        public static string Escape_MichalKotoun(char c)
+        {
+            int code = (int)c;
+
+            if (code > 126)
+                return ToUnicodeRepr(code);
+
+            if (code <= 255 && code > 126)
+                return string.Format("\\x{0:X}", code);
+
+            switch (c)
+            {
+                case '\0':
+                    return @"\0";
+                case '\a':
+                    return @"\a";
+                case '\b':
+                    return @"\b";
+                case '\t':
+                    return @"\t";
+                case '\r':
+                    return @"\r";
+                case '\v':
+                    return @"\v";
+                case '\f':
+                    return @"\f";
+                case '\n':
+                    return @"\n";
+                case '\\':
+                    return @"\\";
+                case '-':
+                    return "\\-";
+                case ' ':
+                    return " ";
+                default:
+                    if (code <= 15)
+                    {
+                        return string.Format("\\x0{0:X}", code);
+                    }
+                    else if (
+                            !(((int)'0') <= code && code <= ((int)'9'))
+                         && !(((int)'a') <= code && code <= ((int)'z'))
+                         && !(((int)'A') <= code && code <= ((int)'Z'))
+                         )
+                    {
+                        return Regex.Escape(c.ToString());
                     }
                     else
                         return c.ToString();
