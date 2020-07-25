@@ -346,6 +346,15 @@ namespace Microsoft.Automata.DirectedGraphs
                     nonepsilonMoves[key] = lab;
                 }
 
+            string sanitize(string input)
+            {
+                return
+                    input
+                    .Replace("\\", "\\\\")
+                    .Replace("\"", "\\\"")
+                    ;
+            }
+
 
             
             tw.WriteLine("digraph \"" + faName + "\" {");
@@ -371,7 +380,7 @@ namespace Microsoft.Automata.DirectedGraphs
                     tw.WriteLine(string.Format("{0} []", state));
                     tw.WriteLine(string.Format("f{0} [shape = box, label=\"\", peripheries=2]", state));
                 }
-                tw.WriteLine(string.Format("{0} [label = \"{1}\"]", state, fa.DescribeState(state)));
+                tw.WriteLine(string.Format("{0} [label = \"{1}\"]", state, sanitize(fa.DescribeState(state))));
             }
             tw.WriteLine();
             tw.WriteLine("//Transitions");
@@ -380,14 +389,15 @@ namespace Microsoft.Automata.DirectedGraphs
             {
                 if (!isfinal(t.Label))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"{3} ];", t.SourceState, t.TargetState,
-                        t.IsEpsilon ? "()" : descr(t.Label).Replace(@"\n", @"\x0A"),
-                        t.IsEpsilon ? "" : ""));
+                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"];", t.SourceState, t.TargetState,
+                        t.IsEpsilon ? "ε" : sanitize(descr(t.Label))
+                        ));
                 }
                 else if (finalLabels.ContainsKey(t.SourceState))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\" ];", t.SourceState, "f"+t.TargetState,
-                 finalLabels[t.SourceState].Replace(@"\n", @"\x0A")));
+                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"];", t.SourceState, "f" + t.TargetState,
+                        sanitize(finalLabels[t.SourceState])
+                        ));
                 }
             }
             tw.WriteLine("}");
