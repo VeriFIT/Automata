@@ -89,6 +89,7 @@ namespace Microsoft.Automata.DirectedGraphs
             public RANKDIR rankdir;
             public int fontsize;
             public Shape shape;
+            public bool htmlLabels;
 
             /// <summary>
             /// Default values
@@ -98,6 +99,7 @@ namespace Microsoft.Automata.DirectedGraphs
                 rankdir = RANKDIR.LR; 
                 fontsize = 12; 
                 shape = Shape.circle;
+                htmlLabels = false;
             }
         }
 
@@ -355,6 +357,8 @@ namespace Microsoft.Automata.DirectedGraphs
                     ;
             }
 
+            string openLabelTag = config.htmlLabels ? "<" : "\"";
+            string closeLabelTag = config.htmlLabels ? ">" : "\"";
 
             
             tw.WriteLine("digraph \"" + faName + "\" {");
@@ -380,7 +384,7 @@ namespace Microsoft.Automata.DirectedGraphs
                     tw.WriteLine(string.Format("{0} []", state));
                     tw.WriteLine(string.Format("f{0} [shape = box, label=\"\", peripheries=2]", state));
                 }
-                tw.WriteLine(string.Format("{0} [label = \"{1}\"]", state, sanitize(fa.DescribeState(state))));
+                tw.WriteLine(string.Format("{0} [label = " +  openLabelTag + "{1}" + closeLabelTag + "]", state, sanitize(fa.DescribeState(state))));
             }
             tw.WriteLine();
             tw.WriteLine("//Transitions");
@@ -389,13 +393,13 @@ namespace Microsoft.Automata.DirectedGraphs
             {
                 if (!isfinal(t.Label))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"];", t.SourceState, t.TargetState,
+                    tw.WriteLine(string.Format("{0} -> {1} [label = " + openLabelTag + "{2}" + closeLabelTag + "];", t.SourceState, t.TargetState,
                         t.IsEpsilon ? "ε" : sanitize(descr(t.Label))
                         ));
                 }
                 else if (finalLabels.ContainsKey(t.SourceState))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = \"{2}\"];", t.SourceState, "f" + t.TargetState,
+                    tw.WriteLine(string.Format("{0} -> {1} [label = " + openLabelTag + "{2}" + closeLabelTag + "];", t.SourceState, "f" + t.TargetState,
                         sanitize(finalLabels[t.SourceState])
                         ));
                 }
