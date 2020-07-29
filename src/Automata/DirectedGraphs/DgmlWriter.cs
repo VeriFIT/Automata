@@ -65,6 +65,29 @@ namespace Microsoft.Automata.DirectedGraphs
 #endif
         }
 
+        public static bool TryShowDgmlFileInVS(string filename)
+        {
+#if NETFRAMEWORK
+            if (!__tried_to_load_VS)
+            {
+                //only try to load VS automation object model one time
+                TryLoadVS();
+                __tried_to_load_VS = true;
+            }
+            try
+            {
+                EnvDTE.DTE dte = (EnvDTE.DTE)VS;
+                dte.ExecuteCommand("File.OpenFile", System.IO.Path.GetFullPath(filename));
+                return true;
+            }
+            catch
+            {
+            }
+#endif
+            return false;
+        }
+
+
 #if NETFRAMEWORK
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         static void ShowGraphInVS<S>(int k, IAutomaton<S> fa, string name, Func<S, string> describeS = null)
