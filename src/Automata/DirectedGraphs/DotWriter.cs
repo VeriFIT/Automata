@@ -354,6 +354,8 @@ namespace Microsoft.Automata.DirectedGraphs
                     input
                     .Replace("\\", "\\\\")
                     .Replace("\"", "\\\"")
+                    //.Replace("<", "\\<")
+                    //.Replace(">", "\\>")
                     ;
             }
 
@@ -393,7 +395,7 @@ namespace Microsoft.Automata.DirectedGraphs
             {
                 if (!isfinal(t.Label))
                 {
-                    tw.WriteLine(string.Format("{0} -> {1} [label = " + openLabelTag + "{2}" + closeLabelTag + "];", t.SourceState, t.TargetState,
+                    tw.WriteLine(string.Format("{0} -> {1} [label = " + openLabelTag + "{2}" + closeLabelTag + (t.IsEpsilon ?  ", style=dashed" : "" ) +  "];", t.SourceState, t.TargetState,
                         t.IsEpsilon ? "ε" : sanitize(descr(t.Label))
                         ));
                 }
