@@ -24,10 +24,22 @@ namespace Microsoft.Automata.Utilities
         private readonly static long frequency;
         static HighTimer()
         {
-            if (!Win32.QueryPerformanceFrequency(out frequency))
+            //TODO: HACK, JUST DISABLES/CRIPPLES HighTimer on non-Windows OS
+#if NETFRAMEWORK
+            if (Environment.OSVersion.ToString().Contains("indows"))
+#else
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+#endif
             {
-                // high-performance counter not supported
-                throw new Exception();
+                if (!Win32.QueryPerformanceFrequency(out frequency))
+                {
+                    // high-performance counter not supported
+                    throw new Exception();
+                }
+            }
+            else
+            {
+                frequency = 0;
             }
         }
 
@@ -49,8 +61,22 @@ namespace Microsoft.Automata.Utilities
             get
             {
                 long startTime;
-                if (!Win32.QueryPerformanceCounter(out startTime))
-                    throw new AutomataException("QueryPerformanceCounter failed");
+
+                //TODO: HACK, JUST DISABLES/CRIPPLES HighTimer on non-Windows OS
+#if NETFRAMEWORK
+                if (Environment.OSVersion.ToString().Contains("indows"))
+#else
+                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+#endif
+                {
+                    if (!Win32.QueryPerformanceCounter(out startTime))
+                        throw new AutomataException("QueryPerformanceCounter failed");
+                }
+                else
+                { 
+                    startTime = 0;
+                }
+
                 return startTime;
             }
         }
