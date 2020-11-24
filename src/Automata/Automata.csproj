@@ -52,6 +52,11 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <OutputPath>bin\$(Platform)\Release\</OutputPath>
     <DefineConstants>TRACE;REX;EXPORT_GPPG;INLINE;UNSAFE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'ReleaseWithDocs'">
+    <OutputPath>bin\$(Platform)\Release\</OutputPath>
+    <DefineConstants>TRACE;REX;EXPORT_GPPG;INLINE;UNSAFE</DefineConstants>
+    <!--Do not generate doc-file by default, it slows developement against release Automata project-->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <!-- x86 build seems to not support UNSAFE and INLINE, but maybe it is a glitch-pattern in the original configuration -->
@@ -60,10 +65,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineConstants>TRACE;REX,EXPORT_GPPG</DefineConstants>
-  </PropertyGroup>  
-  <PropertyGroup>
-    <!-- maybe can be removed? -->
-    <StartupObject />
   </PropertyGroup>
   <PropertyGroup>
     <!--
