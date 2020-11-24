@@ -25,9 +25,8 @@
   </PropertyGroup>
   <!-- this does not work, because all properties were not resolved yet -->
   <!-- <PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'"> -->
-  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'net'">
+  <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <!-- Properties for .NET Framework -->
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
