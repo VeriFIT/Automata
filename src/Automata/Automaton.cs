@@ -5717,6 +5717,20 @@ namespace Microsoft.Automata
         bool reprChosen = false;
         internal HashSet<int> set;
 
+        public int GetRepresentative()
+        {
+            if (reprChosen)
+                return representative;
+            else
+            {
+                var e = set.GetEnumerator();
+                e.MoveNext();
+                representative = e.Current;
+                reprChosen = true;
+                return representative;
+            }
+        }
+
         public int Elem()
         {
             if (reprChosen)
