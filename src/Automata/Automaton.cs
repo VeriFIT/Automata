@@ -3114,18 +3114,22 @@ namespace Microsoft.Automata
             throw new AutomataException("which is different than 1,2,3 ");
         }
 
+
         /// <summary>
         /// Minimization of SFAs.
         /// Can also be applied to nondeterministic SFAs.
+        /// Can use bisimulation (default) or simulation for nondeterministic SFAs.
         /// </summary>
-        public Automaton<T> Minimize()
+        /// <param name="useSimulation">will be used simulation instead of bisimulation if set to true</param>
+        /// <param name="typeOfSimulation">select type of simulation</param>
+        /// <returns></returns>
+        public Automaton<T> Minimize(bool useSimulation = false, int typeOfSimulation = 0)
         {
             if (IsEmpty)
             {
                 if (StateCount > 1 || MoveCount > 0)
                     return MkEmpty(algebra);
-                else
-                    return this;
+                return this;
             }
 
             if (this.IsEpsilon)
@@ -3139,7 +3143,10 @@ namespace Microsoft.Automata
             }
             else
             {
+                if(useSimulation)
+                    return ReduceSizeBySimulation(typeOfSimulation);
                 return MinSFANew(fa);
+
                 //var fa_m = MinSFA(fa);
                 //if (fa_m.StateCount < fa.StateCount)
                 //{
