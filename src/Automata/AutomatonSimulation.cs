@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.Automata
+namespace Microsoft.Automata.Extensions
 {
     /// <summary>
     /// Class of extensions methods for Automaton<T> related to computing simulation and state reducing s-NFA by using simulation,

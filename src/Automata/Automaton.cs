@@ -3123,7 +3123,7 @@ namespace Microsoft.Automata
         /// <param name="useSimulation">will be used simulation instead of bisimulation if set to true</param>
         /// <param name="typeOfSimulation">select type of simulation</param>
         /// <returns></returns>
-        public Automaton<T> Minimize(bool useSimulation = false, int typeOfSimulation = 0)
+        public Automaton<T> Minimize(/*bool useSimulation = false, int typeOfSimulation = 0*/)
         {
             if (IsEmpty)
             {
@@ -3143,8 +3143,8 @@ namespace Microsoft.Automata
             }
             else
             {
-                if(useSimulation)
-                    return ReduceSizeBySimulation(typeOfSimulation);
+                //if(useSimulation)
+                //    return ReduceSizeBySimulation(typeOfSimulation);
                 return MinSFANew(fa);
 
                 //var fa_m = MinSFA(fa);
@@ -3166,27 +3166,6 @@ namespace Microsoft.Automata
         }
 
         /// <summary>
-        /// Reduction by selected simulation
-        /// </summary>
-        /// <param name="which"> 0: LocalSimulation,  1: LocalSimulationOptimizied, 2: SimulationNoCountNoOpt, 3: SimulationNoCount, 4: GlobalSimulation</param>
-        /// <returns></returns>
-        public Automaton<T> ReduceSizeBySimulation(int which)
-        {
-            if (IsEmpty)
-            {
-                if (StateCount > 1 || MoveCount > 0)
-                    return MkEmpty(algebra);
-                return this;
-            }
-
-            if (this.IsEpsilon)
-                return this;
-
-            return this.RemoveEpsilons().EliminateDeadStatesBetter().RemoveEpsilonLoops()
-                .RemapStates().MakeTotal().NonDetStateRedBySim(which).EliminateDeadStatesBetter();
-        }
-
-        /// <summary>
         /// Reduction by bisimulation
         /// </summary>
         /// <returns></returns>
@@ -3204,7 +3183,7 @@ namespace Microsoft.Automata
 
             return MinSFANew(this.RemoveEpsilons());
         }
-
+        
         public static int totalExploredBlocks = 0;
 
         /// <summary>
